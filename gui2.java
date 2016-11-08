@@ -2,45 +2,34 @@ import java.awt.*;
 import java.awt.Graphics.*;
 import java.awt.event.*;
 
-class A extends Frame implements ActionListener
+class A extends Frame implements ItemListener
 {
-	Button b1,b2,b3;
+	Checkbox c1,c2,c3;
 	A()
 	{
-		setLayout(null);
-		b1=new Button("Blue");
-		b2=new Button("Green");
-		b3=new Button("White");
+		setLayout(new FlowLayout());
+		c1=new Checkbox("A",false);
+		c2=new Checkbox("B",false);
+		c3=new Checkbox("C",false);
+		c1.setBounds(50,50,50,50);
+		c2.setBounds(100,50,50,50);
+		c3.setBounds(150,50,50,50);
+		this.add(c1);
+		this.add(c2);
+		this.add(c3);
+		c1.addItemListener(this);
+		c2.addItemListener(this);
+		c3.addItemListener(this);
 		
-		b1.setBounds(50,100,100,50);
-		b2.setBounds(150,100,100,50);
-		b3.setBounds(250,100,100,50);
-		
-		this.add(b1);
-		this.add(b2);
-		this.add(b3);
-		
-		b1.addActionListener(this);
-		b2.addActionListener(this);
-		b3.addActionListener(this);
-	}
-	
-	public void actionPerformed(ActionEvent ae)
-	{
-		if(ae.getSource()==b1)
-	     this.setBackground(Color.BLUE);
-	    if(ae.getSource()==b2)
-	     this.setBackground(Color.GREEN);
-	    if(ae.getSource()==b3)
-	     this.setBackground(Color.WHITE);
 	}
 	
 	public static void main(String []args)
 {
 	A f= new A();
-	f.setSize(800,800);
-        f.setVisible(true);
- 
+	f.setVisible(true);
+	f.setSize(100,100);
+	f.setSize(500,500);
+
 	f.addWindowListener(
 		new WindowAdapter()
 {
@@ -50,9 +39,24 @@ System.exit(0);
 }
 }
 );
- 
+
 }
-	
+
+public void paint(Graphics p)
+{
+	p.drawString("curr: ",60,100);
+	p.drawString("A: "+c1.getState(),110,100);
+	p.drawString("B: "+c2.getState(),160,100);
+	p.drawString("C: "+c3.getState(),210,100);
 }
-	
-	
+
+public void itemStateChanged(ItemEvent ie)
+{
+	repaint();
+}
+
+
+}
+
+
+
